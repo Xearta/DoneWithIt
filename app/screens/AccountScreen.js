@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 
 import Screen from '../components/Screen';
@@ -7,6 +7,7 @@ import colors from '../config/colors';
 import Icon from '../components/Icon';
 import routes from '../navigation/routes';
 import ListItemSeperator from '../components/lists/ListItemSeperator';
+import AuthContext from '../auth/context';
 
 const menuItems = [
   {
@@ -27,12 +28,14 @@ const menuItems = [
 ];
 
 const AccountScreen = ({ navigation }) => {
+  const { user, setUser } = useContext(AuthContext);
+
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
         <ListItem
-          title='Mosh Hamedani'
-          subTitle='programmingwithmosh@gmail.com'
+          title={user.name}
+          subTitle={user.email}
           image={require('../assets/mosh.jpg')}
         />
       </View>
@@ -44,13 +47,22 @@ const AccountScreen = ({ navigation }) => {
           renderItem={({ item }) => (
             <ListItem
               title={item.title}
-              IconComponent={<Icon name={item.icon.name} backgroundColor={item.icon.backgroundColor} />}
+              IconComponent={
+                <Icon
+                  name={item.icon.name}
+                  backgroundColor={item.icon.backgroundColor}
+                />
+              }
               onPress={() => navigation.navigate(item.targetScreen)}
             />
           )}
         />
       </View>
-      <ListItem title='Log Out' IconComponent={<Icon name='logout' backgroundColor='#ffe66d' />} />
+      <ListItem
+        title='Log Out'
+        IconComponent={<Icon name='logout' backgroundColor='#ffe66d' />}
+        onPress={() => setUser(null)}
+      />
     </Screen>
   );
 };
