@@ -26,7 +26,9 @@ const listings = [
 ];
 
 const ListingsScreen = ({ navigation }) => {
-  const { data: listings, error, loading, request: loadListings } = useApi(listingsApi.getListings);
+  const { data: listings, error, loading, request: loadListings } = useApi(
+    listingsApi.getListings
+  );
 
   useEffect(() => {
     loadListings();
@@ -50,6 +52,7 @@ const ListingsScreen = ({ navigation }) => {
             subTitle={'$' + item.price}
             imageUrl={item.images[0].url}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
+            thumbnailUrl={item.images[0].thumbnailUrl}
           />
         )}
       />
