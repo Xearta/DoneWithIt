@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback, Modal, Button, FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback, Modal, Button, FlatList } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import Screen from '../components/Screen';
 import defaultStyles from '../config/styles';
 import PickerItem from './PickerItem';
+import Screen from './Screen';
 
-const AppPicker = ({
+function AppPicker({
   icon,
   items,
   numberOfColumns = 1,
@@ -15,7 +15,7 @@ const AppPicker = ({
   placeholder,
   selectedItem,
   width = '100%',
-}) => {
+}) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -25,7 +25,6 @@ const AppPicker = ({
           {icon && (
             <MaterialCommunityIcons name={icon} size={20} color={defaultStyles.colors.medium} style={styles.icon} />
           )}
-
           {selectedItem ? (
             <Text style={styles.text}>{selectedItem.label}</Text>
           ) : (
@@ -57,9 +56,7 @@ const AppPicker = ({
       </Modal>
     </>
   );
-};
-
-export default AppPicker;
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -80,3 +77,5 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+export default AppPicker;
